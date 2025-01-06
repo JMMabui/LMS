@@ -1,0 +1,12 @@
+name: lms-js-server
+
+services:
+  lms:
+    image: bitnami/postgresql:17.2.0
+    ports:
+      - '5432:5432'
+    environment:
+     - POSTGRES_USER=lms
+     - POSTGRES_PASSWORD=lms
+     - POSTGRES_DB=lmsdb
+  
