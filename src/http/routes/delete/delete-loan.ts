@@ -1,22 +1,22 @@
+import { User } from './../../../../node_modules/.prisma/client/index.d';
 import type {FastifyPluginAsyncZod} from "fastify-type-provider-zod"
 import { prisma } from "../../../../database/script";
 import z from "zod"
 
-export const deleteLoanRoute: FastifyPluginAsyncZod = async (app, opts) => {
-    app.delete('/loan/:id', async (request, reply) => {
-        
-        const schema = z.object({
-            id: z.string()
-        })
-        
-        const loanId = schema.parse(request.params) ;
+export const deleteUserRoute: FastifyPluginAsyncZod = async (app, opts) => {
+    app.delete('/user/:id', async (request, reply) => {
+          
+
+        const { id } = request.params ;
       
         try {
-          await prisma.loan.delete({
-            where: { id: String(loanId) },
+          const user = await prisma.user.delete({
+            where: {
+              id, 
+            },
           });
       
-          return reply.status(200).send({ message: 'User deleted successfully' });
+          return reply.json(user).status(200).send({ message: 'User deleted successfully' });
         } catch (error) {
         //   if ( error.code === 'P2025') {
         //     return reply.status(404).send({ message: 'User not found' });

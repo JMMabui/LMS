@@ -3,23 +3,28 @@ import { updateLoan } from '../../../functions/loan/update-status'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 
 export const updateLoanRoute: FastifyPluginAsyncZod = async (app, opts) => {
-  app.put('/update-loan', async (request, response) => {
+ 
     const updateLoanSchema = z.object({
-      id: z.string(),
-      status: z.string(),
+      status: z.enum(['PENDING', 'RETURNED', 'LATE']),
     })
-
+  
+  app.put('/update-loan/:id', async (request, response) => {  
+    const { id } = request.params
     try {
       const body = updateLoanSchema.parse(request.body)
       await updateLoan({
-        id: body.id,
+        id: String(id),
         status: body.status,
       })
       return response.status(200).send({ message: 'Loan updated successfully' })
     } catch (error) {
-      return response
-        .status(400)
-        .send({ message: 'Error updating loan', error: error })
+      if (error instanceof z.ZodError) {
+        return response.status(400).send({
+          message: 'Validation error',
+          issues: error.issues,
+        });
+      }
+      return response.status(500).send({ message: 'Internal server error', error });
     }
   })
 }

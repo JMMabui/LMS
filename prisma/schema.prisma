@@ -25,9 +25,9 @@ enum TypeUser {
   Administrador
   Visitante
   
-  // PENDING // Empréstimo aguardando devolução
-  // RETURNED // Empréstimo devolvido
-  // LATE // Empréstimo atrasado
+  //  // Empréstimo aguardando devolução
+  // // Empréstimo devolvido
+  //  // Empréstimo atrasado
 }
 
 model Book {

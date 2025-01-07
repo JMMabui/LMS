@@ -1,9 +1,10 @@
+import { TypeUser } from './../../../node_modules/.prisma/client/index.d';
 import { prisma } from "../../../database/script";
 
 interface CreateUserRequest{
     name: string,
     email: string,
-    typeUser: string,
+    typeUser:  TypeUser 
 }
 
 export async function createUser(

@@ -8,7 +8,7 @@ export const createUserRoute: FastifyPluginAsyncZod = async (app, opts) => {
     const createUserSchema = z.object({
       name: z.string().min(3).max(50),
       email: z.string(),
-      typeUser: z.string(),
+      typeUser: z.enum(['Visitante', 'Funcionario', 'Administrador', 'Aluno']),
     })
 
     try {

@@ -4,11 +4,13 @@
   "description": "Library Managament System",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --env-file .env src/http/server.ts"
+    "dev": "tsx watch --env-file .env src/http/server.ts",
+    "seed": "tsx --env-file .env src/database/seed.ts"
   },
   "author": "justino mabui",
   "license": "ISC",
   "dependencies": {
+    "@fastify/formbody": "^8.0.1",
     "@prisma/client": "^6.1.0",
     "dayjs": "^1.11.13",
     "fastify": "^5.2.0",
